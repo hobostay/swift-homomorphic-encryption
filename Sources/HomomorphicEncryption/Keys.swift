@@ -96,7 +96,10 @@ extension _KeySwitchKey: PolyCollection {
 
     @inlinable
     public func polyContext() -> PolyContext<Scalar> {
-        ciphertexts[0].polyContext()
+        guard let firstCiphertext = ciphertexts.first else {
+            preconditionFailure("KeySwitchKey must have at least one ciphertext")
+        }
+        return firstCiphertext.polyContext()
     }
 }
 
@@ -126,7 +129,10 @@ extension _RelinearizationKey: PolyCollection {
 
     @inlinable
     public func polyContext() -> PolyContext<Scalar> {
-        keySwitchKey.ciphertexts[0].polyContext()
+        guard let firstCiphertext = keySwitchKey.ciphertexts.first else {
+            preconditionFailure("RelinearizationKey must have at least one ciphertext")
+        }
+        return firstCiphertext.polyContext()
     }
 }
 

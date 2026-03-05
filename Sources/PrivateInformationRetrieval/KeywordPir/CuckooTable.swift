@@ -126,7 +126,7 @@ public struct CuckooTableConfig: Hashable, Codable, Sendable {
         }
         switch bucketCount {
         case let .allowExpansion(expansionFactor: expansionFactor, targetLoadFactor: targetLoadFactor):
-            guard expansionFactor > 1.0, targetLoadFactor < 1.0 else {
+            guard expansionFactor > 1.0, targetLoadFactor <= 1.0 else {
                 throw PirError.invalidCuckooConfig(config: self)
             }
         case let .fixedSize(bucketCount: bucketCount):
